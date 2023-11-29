@@ -1,0 +1,20 @@
+
+{
+"compilerOptions": {
+"target": "ES2022",
+"rootDir": "./src",
+"outDir": "./build",
+"module": "commonjs",
+"esModuleInterop": true,
+"resolveJsonModule": true,
+"moduleResolution": "node",
+"types": ["node"],
+
+},
+"include": [
+"./src/**/*.ts"
+],
+"exclude": [
+"node_modules"
+]
+}
