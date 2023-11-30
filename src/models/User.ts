@@ -10,6 +10,8 @@ export class User {
   username: string;
   private _password: string;
   private _tweets: Tweet[] = [];
+  private following: User[] = [];
+  private followers: User[] = [];
 
   constructor(name: string, email: string, username: string, password: string) {
     this._id = randomUUID(); // Gera um novo ID único
@@ -26,6 +28,10 @@ export class User {
     User.users.push(this);
   }
 
+  GetTweets(): Tweet[] {
+    return this._tweets;
+  }
+
   private static userExistsByUsername(username: string): boolean {
     return User.users.some((user) => user.username === username);
   }
@@ -38,26 +44,40 @@ export class User {
 
     // Lógica para enviar um tweet
   }
-  toJSON() {}
 
   follow(user: User) {
     // Lógica para seguir um usuário
+    if (user !== this && !this.following.includes(user)) {
+      this.followers.push(user);
+    }
+  }
+
+  showfollowrs(): void {
+    // Mostra as pessoas que voce esta seguindo
+    console.log(`Seguindo:`);
+    const followers = this.followers.map((follower) => follower.name);
+    console.log(followers);
   }
 
   showFeed() {
+    // Adicione outras informações do tweet que deseja exibir
     console.log(`@${this.username}`);
-    this._tweets.forEach(tweet => {        
-        console.log(`Tweet: ${tweet.content}, Type: ${tweet.type}`);
-        console.log(
-            `
+    this._tweets.forEach((tweet) => {
+      console.log(`Tweet: ${tweet.content}, Type: ${tweet.type}`);
+      console.log(
+        `
              Likes: ${tweet.likes} 
              Replies: ${tweet.replies}
-            `)
-        // Adicione outras informações do tweet que deseja exibir
+            `
+      );
     });
-}
+  }
 
   showTweets() {
     // Lógica para mostrar os tweets do usuário
+  }
+
+  liketweet(tweet: Tweet) {
+    tweet.like(this);
   }
 }
