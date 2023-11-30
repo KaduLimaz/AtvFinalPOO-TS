@@ -22,8 +22,12 @@ export class Tweet {
       this.likes.push(user);
     }
   }
-  showLikes():string[] {
-   return this.likes.map((user) => user.name)
+
+  showLikes(): void {
+    const nomesCurtidas = this.likes.map(user => user.name);
+    console.log(`Usuários que curtiram este tweet: ${nomesCurtidas.join(', ')}`);
   }
+
+
   showReplies() {}
 }

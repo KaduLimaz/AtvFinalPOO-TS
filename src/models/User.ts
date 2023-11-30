@@ -59,22 +59,19 @@ export class User {
     console.log(followers);
   }
 
-  showFeed() {
-    // Adicione outras informações do tweet que deseja exibir
+  showFeed() {}
+
+  showTweets() {
     console.log(`@${this.username}`);
     this._tweets.forEach((tweet) => {
       console.log(`Tweet: ${tweet.content}, Type: ${tweet.type}`);
       console.log(
         `
-             Likes: ${tweet.likes} 
-             Replies: ${tweet.replies}
+Likes: ${tweet.likes} 
+Replies: ${tweet.replies}
             `
       );
     });
-  }
-
-  showTweets() {
-    // Lógica para mostrar os tweets do usuário
   }
 
   liketweet(tweet: Tweet) {
