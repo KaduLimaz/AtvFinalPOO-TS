@@ -19,7 +19,7 @@ automaticamente pela aplicação.
 Cada tweet possui um tipo obrigatório (normal ou
 reply).
 
-()
+(OK)
 
 ## 3 Exibição de tweets
 Deve ser possível exibir um tweet na aplicação. Como

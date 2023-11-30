@@ -2,6 +2,14 @@ import { randomUUID } from "node:crypto";
 
 export const id = randomUUID();
 
-import {user1,user2} from "./database/User"
+import {maria,kadu} from "./database/User"
+import {Tweet} from "./models/Tweet"
 
-console.log(user2);
+
+maria.sendTweet(new Tweet("OLA MUNDOOO","normal"))
+// kadu.sendTweet(new Tweet ("ola","normal"))
+// kadu.sendTweet(new Tweet ("2","normal"))
+
+
+maria.showFeed()
+// kadu.showFeed()
