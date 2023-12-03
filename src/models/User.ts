@@ -38,9 +38,10 @@ export class User {
 
   //O método some() é um método de instância do tipo Array que testa se pelo menos um dos elementos do array passa no teste implementado pela função atribuída. Ele retorna true se algum dos elementos do array passa no teste especificado pela função de callback, caso contrário, retorna false.
 
-  sendTweet(tweet: Tweet): void {
+  sendTweet(content: string): Tweet {
+    const tweet = new Tweet(content, "normal");
     this._tweets.push(tweet);
-    tweet.user = this;
+    return tweet;   
 
     // Lógica para enviar um tweet
   }
@@ -48,33 +49,38 @@ export class User {
   follow(user: User) {
     // Lógica para seguir um usuário
     if (user !== this && !this.following.includes(user)) {
-      this.followers.push(user);
+      this.following.push(user);
     }
   }
 
-  showfollowrs(): void {
+  showfollowing(): void {
     // Mostra as pessoas que voce esta seguindo
     console.log(`Seguindo:`);
-    const followers = this.followers.map((follower) => follower.name);
+    const followers = this.following.map((follower) => follower.name);
     console.log(followers);
   }
 
   showFeed() {}
 
   showTweets() {
-    console.log(`@${this.username}`);
+    
     this._tweets.forEach((tweet) => {
-      console.log(`Tweet: ${tweet.content}, Type: ${tweet.type}`);
+      console.log(`@${this.username}: ${tweet.content}`);
       console.log(
-        `
-Likes: ${tweet.likes} 
+        `[${tweet.likesAmount}]Likes
 Replies: ${tweet.replies}
             `
       );
     });
-  }
+  }  
 
-  liketweet(tweet: Tweet) {
-    tweet.like(this);
+  likeTweet(tweet: Tweet){
+    if(!tweet.likes.includes(this)){
+      tweet.likes.push(this);
+      tweet.likesAmount++;
+      console.log(`curtido por ${this.name}`)
+    } else {
+      console.log(`tweet ja curtido por ${this.name}`)
+    }
   }
 }
