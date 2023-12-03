@@ -28,7 +28,7 @@ export class User {
     User.users.push(this);
   }
 
-  GetTweets(): Tweet[] {
+  get tweets(): Tweet[] {
     return this._tweets;
   }
 

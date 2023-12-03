@@ -8,6 +8,7 @@ export class Tweet {
   likes: User[] = [];
   user: User;
   replies: Tweet[] = [];
+  likesAmount: number = 0
 
   constructor(content: string, type: "normal" | "reply") {
     this._tweetId = randomUUID();
@@ -20,6 +21,8 @@ export class Tweet {
   like(user: User) {
     if (!this.likes.includes(user)) {
       this.likes.push(user);
+      this.likesAmount++;
+      
     }
   }
 
