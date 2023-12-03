@@ -7,7 +7,7 @@ Os campos ID e Username devem ser únicos por
 usuário, sendo que o ID pode ser gerado
 automaticamente pela aplicação.
 
-(OK)
+      // na pasta database/User.ts tem os usuarios criados 
 
 ## 2 Cadastro de tweets
 Deve ser possível criar tweets por usuário. Cada

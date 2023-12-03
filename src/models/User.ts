@@ -1,4 +1,5 @@
 import { Tweet } from "./Tweet";
+
 import { randomUUID } from "node:crypto";
 
 export class User {
@@ -41,7 +42,7 @@ export class User {
   sendTweet(content: string): Tweet {
     const tweet = new Tweet(content, "normal");
     this._tweets.push(tweet);
-    return tweet;   
+    return tweet;
 
     // Lógica para enviar um tweet
   }
@@ -60,27 +61,43 @@ export class User {
     console.log(followers);
   }
 
-  showFeed() {}
+  showFeed() {
+    // Mostraro feed completo
+    console.log(`<${this.username} Feed >`);
+    this.showTweets();
 
-  showTweets() {
-    
-    this._tweets.forEach((tweet) => {
-      console.log(`@${this.username}: ${tweet.content}`);
-      console.log(
-        `[${tweet.likesAmount}]Likes
-Replies: ${tweet.replies}
-            `
-      );
+    this.following.forEach((user) => {
+      user.showTweets();
     });
-  }  
+  }
 
-  likeTweet(tweet: Tweet){
-    if(!tweet.likes.includes(this)){
+  showTweets(): void {
+    // Mostrar todos os tweets
+    this._tweets.forEach((tweet) => {
+      console.log(`@${this.username}: ${tweet.content}
+    `);
+      if (tweet.likesAmount >= 2) {
+        console.log(
+          `[${tweet.likes[0].username} and other ${
+            tweet.likes.length - 1
+          } user liked this]`
+        );
+      } else if (tweet.likesAmount === 1) {
+        console.log(`[${tweet.likes[0].username} liked this]`);
+      }
+      if (tweet.reply.length !== 0) {
+        tweet.showReplies();
+      }
+    });
+  }
+
+  likeTweet(tweet: Tweet) {
+    if (!tweet.likes.includes(this)) {
       tweet.likes.push(this);
       tweet.likesAmount++;
-      console.log(`curtido por ${this.name}`)
+      console.log(`curtido por ${this.name}`);
     } else {
-      console.log(`tweet ja curtido por ${this.name}`)
+      console.log(`tweet ja curtido por ${this.name}`);
     }
   }
 }

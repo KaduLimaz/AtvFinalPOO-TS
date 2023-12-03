@@ -2,12 +2,12 @@ import { User } from "./User";
 import { randomUUID } from "node:crypto";
 
 export class Tweet {
-  private _tweetId: string;
+  private readonly _tweetId: string;
   content: string;
   type: "normal" | "reply";
   likes: User[] = [];
   user: User;
-  replies: Tweet[] = [];
+  private _replies: Tweet[] = [];
   likesAmount: number = 0;
 
   constructor(content: string, type: "normal" | "reply") {
@@ -16,14 +16,15 @@ export class Tweet {
     this.type = type;
   }
 
-  reply(content: string) {}
+  get replies(): Tweet[] {
+    return this._replies;
+  }
 
-  like(user: User) {
-    if (!this.likes.includes(user)) {
-      this.likes.push(user);
-      this.likesAmount++;      
-    }   
-      
+  reply(user: User, content: string) {
+    const reply = new Tweet(content, "reply");
+    reply.user = user;
+    this.replies.push(reply);
+    return reply;
   }
 
   showLikes(): void {
@@ -33,5 +34,13 @@ export class Tweet {
     );
   }
 
-  showReplies() {}
+  showReplies() {
+    if (this.reply.length > 0) {
+      this._replies.forEach((reply) => {
+        console.log(`> @${reply.user.username} - ${reply.content}`);
+      });
+    } else {
+      console.log("No replies.");
+    }
+  }
 }
